@@ -1,9 +1,11 @@
 const puppeteer = require('puppeteer');
 const codeObj = require('./codes');
 
-const loginLink = 'https://www.hackerrank.com/auth/login';
-const email = 'Enter your email';
-const password = 'Enter you password';
+const {LOGINLINK, EMAIL, PASSWORD} = require('./credentials');
+
+const loginLink = LOGINLINK;
+const email = EMAIL;
+const password = PASSWORD;
 
 let browserOpen = puppeteer.launch({
     headless : false,
