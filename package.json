@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "chalk": "^4.1.0",
     "chromium": "^3.0.3",
+    "prompt-sync": "^4.2.0",
     "puppeteer": "^21.5.2"
   },
   "name": "hackerrank-automation",

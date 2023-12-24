@@ -1,11 +1,15 @@
 const puppeteer = require('puppeteer');
+const chalk = require('chalk');
+const ps = require('prompt-sync');
+const prompt = ps();
 const codeObj = require('./codes');
 
-const {LOGINLINK, EMAIL, PASSWORD} = require('./credentials');
-
-const loginLink = LOGINLINK;
-const email = EMAIL;
-const password = PASSWORD;
+const loginLink = 'https://www.hackerrank.com/auth/login';
+console.log(chalk.hex('#DEADED').bold.underline("-----------------ENTER LOGIN CREDENTIALS-----------------"));
+const email = prompt(chalk.green.bold.italic("Enter email :"));
+const password = prompt(chalk.green.bold.italic("Enter password :"));
+if (!email && !password) return console.log(chalk.red.bold('!!!!!!!! PLEASE ENTER VALID EMAIL AND PASSWORD !!!!!!!!'));
+console.log(chalk.hex('#DEADED').bold("LET'S START AUTOMATION 🚀"));
 
 (async function () {
     try {
@@ -23,8 +27,10 @@ const password = PASSWORD;
         await waitAndClick('input[value="warmup"]', newTab);
         let allChallenges = await newTab.$$('.ui-btn.ui-btn-normal.primary-cta.ui-btn-line-primary.ui-btn-styled');
         await questionSolver(newTab, allChallenges[1], codeObj.answer[0]);
+        console.log(chalk.blueBright.bold('@ @ # # @ @ # # @ @ # # @ @ # # 🎉🎉 AUTOMATION FINISHED SUCCESSFULLY 🎉🎉 @ @ # # @ @ # # @ @ # # @ @ # #'));
 
     } catch (error) {
+        console.log(chalk.blueBright.bold('@ @ # # @ @ # # @ @ # # @ @ # # 😭😭 AUTOMATION FAILED DUE TO SOME ERROR 😭😭 @ @ # # @ @ # # @ @ # # @ @ # #'));
         console.log(error);
     }
 
@@ -42,7 +48,7 @@ async function questionSolver(page, question, answer) {
     await page.keyboard.down('Control');
     await page.keyboard.press('A');
     await page.keyboard.up('Control');
-    await page.type('.monaco-editor.no-user-select.showUnused.showDeprecated.vs','a');
+    await page.type('.monaco-editor.no-user-select.showUnused.showDeprecated.vs', 'a');
     await waitAndClick('.checkbox-input', page);
     await page.waitForSelector('textarea.custominput', page);
     await page.type('textarea.custominput', answer, { delay: 20 });
@@ -55,7 +61,7 @@ async function questionSolver(page, question, answer) {
     await page.keyboard.press('F');
     await page.keyboard.up('Control');
     await waitAndClick('textarea[aria-label="Find"]', page);
-    await page.type('textarea[aria-label="Find"]','a');
+    await page.type('textarea[aria-label="Find"]', 'a');
     await waitAndClick('div[aria-label="Toggle Replace"]', page);
     await waitAndClick('textarea[aria-label="Replace"]', page);
     await page.keyboard.down('Control');
